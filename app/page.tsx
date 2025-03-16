@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React from "react";
+import { getWeatherData } from "./action";
 
+//StEP 02
 function SubmitButton() {
   return (
     <Button type="submit">
@@ -13,10 +15,15 @@ function SubmitButton() {
   );
 }
 
+//STEP 05
 export default function Home() {
-  const handleSearch = () => {
-    console.log("search");
+  const handleSearch = async (formData: FormData) => {
+    const city = formData.get("city") as string;
+    const { data } = await getWeatherData(city);
+    console.log(data);
   };
+
+  //STEP 01
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-400 to-blue-500 p-4 flex items-center justify-center">
       <div className="w-full max-w-md space-y-4">
