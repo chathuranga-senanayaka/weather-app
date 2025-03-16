@@ -100,7 +100,7 @@ export default function Home() {
                       transition={{ delay: 0.2 }}
                       className="text-5xl font-bold"
                     >
-                      {Math.round(weather.main.temp)}K
+                      {Math.round(weather.main.temp - 273.15)}°C
                     </motion.div>
                   </div>
                   <motion.div
@@ -125,7 +125,7 @@ export default function Home() {
                     <Thermometer className="w-6 h-6 mx-auto text-orange-500" />
                     <div className="mt-2 text-sm">Feels Like</div>
                     <div className="font-semibold">
-                      {Math.round(weather.main.feels_like)}°C
+                      {Math.round(weather.main.feels_like - 273.15)}°C
                     </div>
                   </motion.div>
                   <motion.div
