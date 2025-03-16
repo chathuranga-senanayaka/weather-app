@@ -3,6 +3,27 @@
 "use server";
 
 import { WeatherData } from "@/types/weather";
+import { z } from "zod";
+
+const weatherSchema = z.object({
+  name: z.string(),
+  main: z.object({
+    temp: z.number(),
+    humidity: z.number(),
+    feels_like: z.number(),
+  }),
+  weather: z.array(
+    z.object({
+      main: z.string(),
+      description: z.string(),
+      icon: z.string(),
+    })
+  ),
+  wind: z.object({
+    speed: z.number(),
+    deg: z.number(),
+  }),
+});
 
 //STEP 07
 export async function getWeatherData(
@@ -18,7 +39,8 @@ export async function getWeatherData(
     if (!res.ok) {
       throw new Error("City not found");
     }
-    const data = await res.json();
+    const rawData = await res.json();
+    const data = weatherSchema.parse(rawData);
     return { data };
   } catch (error) {
     console.log(error);
