@@ -43,7 +43,12 @@ export async function getWeatherData(
     const data = weatherSchema.parse(rawData);
     return { data };
   } catch (error) {
-    console.log(error);
-    return {};
+    if (error instanceof z.ZodError) {
+      return { error: "Invalid weather data recieved" };
+    }
+    return {
+      error:
+        error instanceof Error ? error.message : "Failde to fetch weather data",
+    };
   }
 }

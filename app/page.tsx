@@ -21,9 +21,14 @@ function SubmitButton() {
 export default function Home() {
   //STEP 08
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [error, seterror] = useState<string>("");
   const handleSearch = async (formData: FormData) => {
     const city = formData.get("city") as string;
-    const { data } = await getWeatherData(city);
+    const { data, error: weatherError } = await getWeatherData(city);
+    console.log(error);
+    if (weatherError) {
+      seterror(weatherError);
+    }
     //STEP 09
     if (data) {
       setWeather(data);
